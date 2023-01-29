@@ -11,9 +11,7 @@
     <title>Hello, world!</title>
   </head>
   <body>
-    <p></p>
-
-    <nav aria-label="Page navigation">
+    <nav aria-label="Page navigation" class="mt-4 mb-4">
         <ul class="pagination justify-content-center">
             <li class="page-item {{previous_btn}}">
             <a class="page-link" href="/pages/index{{current_page-1}}.html">Назад</a>
@@ -47,6 +45,12 @@
                     <div class="card-body">
                     <h5 class="card-title">{{book.title}}</h5>
                     <p class="card-text">{{book.author}}</p>
+                    <div class="row pl-4">
+                    {% for genre in book.genre %}
+                    <div class="pl-2 pr-2">
+                        <p><small class="text-muted"><b>{{genre}}</b></small></p></div>
+                    {% endfor %}
+                    </div>
                     <p class="card-text"><small class="text-muted"><a href="/downloads/books/{{book.file_name}}.txt" target="_blank">Читать</a></small></p>
                     </div>
                 </div>
@@ -58,7 +62,7 @@
     {% endfor %}
     </div>
 
-    <nav aria-label="Page navigation">
+    <nav aria-label="Page navigation" class="mt-3 mb-5">
         <ul class="pagination justify-content-center">
             <li class="page-item {{previous_btn}}">
             <a class="page-link" href="/pages/index{{current_page-1}}.html">Назад</a>
