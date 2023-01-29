@@ -7,8 +7,6 @@ from more_itertools import chunked
 from livereload import Server
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-# from http.server import HTTPServer, SimpleHTTPRequestHandler
-
 
 def on_reload():
 
@@ -71,8 +69,6 @@ def on_reload():
 
 
 on_reload()
-# server = HTTPServer(('0.0.0.0', 8000), SimpleHTTPRequestHandler)
-# server.serve_forever()
 
 server = Server()
 server.watch('template.html', on_reload)
