@@ -11,6 +11,29 @@
     <title>Hello, world!</title>
   </head>
   <body>
+    <p></p>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item {{previous_btn}}">
+            <a class="page-link" href="/pages/index{{current_page-1}}.html">Назад</a>
+            </li>
+            {% for page in total_pages %}
+                {% if page+1 == current_page %}
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">{{page+1}}<span class="sr-only">(current)</span></span>
+                    </li>
+                {% else %}
+                <li class="page-item"><a class="page-link" href="/pages/index{{page+1}}.html">{{page+1}}</a></li>
+                {% endif %}
+            {% endfor %}
+            <li class="page-item {{next_btn}}">
+            <a class="page-link" href="/pages/index{{current_page+1}}.html">Вперёд</a>
+            </li>
+
+        </ul>
+    </nav>
+
     <div class="container">
     {% for cunked_row in all_books_cunked %}
         <div class="row">
@@ -34,6 +57,27 @@
         </div>
     {% endfor %}
     </div>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item {{previous_btn}}">
+            <a class="page-link" href="/pages/index{{current_page-1}}.html">Назад</a>
+            </li>
+            {% for page in total_pages %}
+                {% if page+1 == current_page %}
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">{{page+1}}<span class="sr-only">(current)</span></span>
+                    </li>
+                {% else %}
+                <li class="page-item"><a class="page-link" href="/pages/index{{page+1}}.html">{{page+1}}</a></li>
+                {% endif %}
+            {% endfor %}
+            <li class="page-item {{next_btn}}">
+            <a class="page-link" href="/pages/index{{current_page+1}}.html">Вперёд</a>
+            </li>
+
+        </ul>
+    </nav>
     
 
     <!-- Optional JavaScript; choose one of the two! -->

@@ -1,5 +1,6 @@
 import json
 import os
+import math
 
 from pathlib import Path
 from more_itertools import chunked
@@ -41,13 +42,32 @@ def on_reload():
             current_book += 1
 
         pagination += 1
-        rendered_page = template.render(all_books_cunked=page_books)
+        pagination_pre = ''
+        pagination_next = ''
 
-        with open(Path.cwd()/pages_folder/f'index{pagination}.html', 'w', encoding="utf8") as file:
-            file.write(rendered_page)
+        if pagination == 1:
+            pagination_pre = 'disabled'
 
         if current_book >= len(all_books)/columns:
             pagination_continue = False
+            pagination_next = 'disabled'
+
+        total_pages = math.ceil(len(all_books)/per_page)
+
+        rendered_page = template.render(
+                                        all_books_cunked=page_books,
+                                        current_page=pagination,
+                                        total_pages=range(total_pages),
+                                        previous_btn=pagination_pre,
+                                        next_btn=pagination_next
+                                        )
+
+        if pagination == 1:  # Main Page
+            with open('index.html', 'w', encoding="utf8") as file:
+                file.write(rendered_page)
+
+        with open(Path.cwd()/pages_folder/f'index{pagination}.html', 'w', encoding="utf8") as file:
+            file.write(rendered_page)
 
 
 on_reload()
