@@ -1,6 +1,4 @@
-/downloads
 /venv
-/pages
 *.log
 
 # Byte-compiled / optimized / DLL files
