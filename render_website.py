@@ -1,10 +1,12 @@
 import json
+import os
 
 from pathlib import Path
 from more_itertools import chunked
 from livereload import Server
-from http.server import HTTPServer, SimpleHTTPRequestHandler
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+
+# from http.server import HTTPServer, SimpleHTTPRequestHandler
 
 
 def on_reload():
@@ -13,7 +15,13 @@ def on_reload():
     with open(all_books_filename, encoding='utf_8') as file:
         all_books = json.load(file)
 
-    all_books_cunked = list(chunked(all_books.values(), 2))
+    per_page = 20
+    columns = 2
+    pagination = 0
+    pages_folder = 'pages'
+
+    os.makedirs(pages_folder, exist_ok=True)
+    all_books_cunked = list(chunked(all_books.values(), columns))
 
     env = Environment(
         loader=FileSystemLoader('.'),
@@ -22,12 +30,24 @@ def on_reload():
 
     template = env.get_template('template.html')
 
-    rendered_page = template.render(
-        all_books_cunked=all_books_cunked
-    )
+    current_book = 0
+    pagination_continue = True
+    while pagination_continue:
+        page_books = []
+        for num in enumerate(range(int(per_page/columns))):
+            if current_book >= len(all_books)/columns:
+                continue
+            page_books.append(all_books_cunked[current_book])
+            current_book += 1
 
-    with open('index.html', 'w', encoding="utf8") as file:
-        file.write(rendered_page)
+        pagination += 1
+        rendered_page = template.render(all_books_cunked=page_books)
+
+        with open(Path.cwd()/pages_folder/f'index{pagination}.html', 'w', encoding="utf8") as file:
+            file.write(rendered_page)
+
+        if current_book >= len(all_books)/columns:
+            pagination_continue = False
 
 
 on_reload()

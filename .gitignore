@@ -1,8 +1,7 @@
 /downloads
 /venv
+/pages
 *.log
-
-/index.html
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
