@@ -10,9 +10,9 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 def on_reload():
 
-    all_books_filename = Path.cwd()/'downloads'/'parsed_books_data.json'
-    with open(all_books_filename, encoding='utf_8') as file:
-        all_books = json.load(file)
+    filename_books_description = Path.cwd()/'downloads'/'parsed_books_data.json'
+    with open(filename_books_description, encoding='utf_8') as file:
+        books_description = json.load(file)
 
     per_page = 20
     columns = 2
@@ -20,7 +20,7 @@ def on_reload():
     pages_folder = 'pages'
 
     os.makedirs(pages_folder, exist_ok=True)
-    all_books_cunked = list(chunked(all_books.values(), columns))
+    all_books_chunked = list(chunked(books_description.values(), columns))
 
     env = Environment(
         loader=FileSystemLoader('.'),
@@ -34,9 +34,9 @@ def on_reload():
     while pagination_continue:
         page_books = []
         for num in enumerate(range(int(per_page/columns))):
-            if current_book >= len(all_books)/columns:
+            if current_book >= len(books_description)/columns:
                 continue
-            page_books.append(all_books_cunked[current_book])
+            page_books.append(all_books_chunked[current_book])
             current_book += 1
 
         pagination += 1
@@ -46,14 +46,14 @@ def on_reload():
         if pagination == 1:
             pagination_pre = 'disabled'
 
-        if current_book >= len(all_books)/columns:
+        if current_book >= len(books_description)/columns:
             pagination_continue = False
             pagination_next = 'disabled'
 
-        total_pages = math.ceil(len(all_books)/per_page)
+        total_pages = math.ceil(len(books_description)/per_page)
 
         rendered_page = template.render(
-                                        all_books_cunked=page_books,
+                                        all_books_chunked=page_books,
                                         current_page=pagination,
                                         total_pages=range(total_pages),
                                         previous_btn=pagination_pre,
@@ -68,8 +68,10 @@ def on_reload():
             file.write(rendered_page)
 
 
-on_reload()
+if __name__ == '__main__':
 
-server = Server()
-server.watch('template.html', on_reload)
-server.serve(root='.')
+    on_reload()
+
+    server = Server()
+    server.watch('template.html', on_reload)
+    server.serve(root='.')
