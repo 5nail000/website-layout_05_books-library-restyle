@@ -61,10 +61,10 @@ def on_reload():
                                         )
 
         if pagination == 1:  # Main Page
-            with open(Path.cwd()/pages_folder/'index.html', 'w', encoding="utf8") as file:
+            with open(Path.cwd()/pages_folder/'index.html', 'w', encoding='utf8') as file:
                 file.write(rendered_page)
 
-        with open(Path.cwd()/pages_folder/f'index{pagination}.html', 'w', encoding="utf8") as file:
+        with open(Path.cwd()/pages_folder/f'index{pagination}.html', 'w', encoding='utf8') as file:
             file.write(rendered_page)
 
 

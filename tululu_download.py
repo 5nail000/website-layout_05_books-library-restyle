@@ -47,11 +47,11 @@ def parse_book_page(html_page):
 
     content = BeautifulSoup(html_page, 'lxml')
 
-    book_url = f"https://tululu.org{content.select_one('div.bookimage a').get('href')}"
+    book_url = f'https://tululu.org{content.select_one("div.bookimage a").get("href")}'
     book_id = int(book_url[20:-1])
 
-    book_title = content.find('div', {"id": "content"}).find('h1').next[:-8]
-    book_author = content.find('div', {"id": "content"}).find('a').text
+    book_title = content.find('div', {'id': 'content'}).find('h1').next[:-8]
+    book_author = content.find('div', {'id': 'content'}).find('a').text
 
     book_image = content.select_one('div.bookimage img').get('src')
     book_image = urljoin(f'https://tululu.org/b{book_id}/', book_image)
@@ -113,7 +113,7 @@ def download_many_books(start_id=1, end_id=100000000):
 
         filename = parsed_book[book_id]['file_name']
         txt_link = parsed_book[book_id]['file_url']
-        txt_filename = f"{filename}.txt"
+        txt_filename = f'{filename}.txt'
         image_link = parsed_book[book_id]['image']
         image_filename = ''.join([filename, pathlib.Path(image_link).suffix])
 
@@ -124,9 +124,9 @@ def download_many_books(start_id=1, end_id=100000000):
 if __name__ == '__main__':
 
     logging.basicConfig(level=logging.ERROR,
-                        filename="tululu_log.log",
-                        filemode="w",
-                        format="%(asctime)s - %(message)s",
+                        filename='tululu_log.log',
+                        filemode='w',
+                        format='%(asctime)s - %(message)s',
                         datefmt='%Y.%m.%d  %H:%M:%S'
                         )
 
@@ -134,8 +134,8 @@ if __name__ == '__main__':
         prog='books downloader',
         description='Download books from tululu'
         )
-    parser.add_argument("-start_id", help="start id", type=int, default=1)
-    parser.add_argument("-end_id", help="end id", type=int, default=1)
+    parser.add_argument('-start_id', help='start id', type=int, default=1)
+    parser.add_argument('-end_id', help='end id', type=int, default=1)
     args = parser.parse_args()
 
     if args.start_id < 1:
