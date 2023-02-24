@@ -27,7 +27,7 @@ def on_reload():
         autoescape=select_autoescape(['html', 'xml']),
     )
 
-    env.globals['static'] = '/static/'
+    env.globals['static'] = './static/'
     template = env.get_template('template.html')
 
     current_book = 0
