@@ -112,7 +112,7 @@ if __name__ == '__main__':
     parser.add_argument("--json_path", help="path for json-file", type=str, default='')
     parser.add_argument("--skip_imgs", help="skip image-files", action='store_true')
     parser.add_argument("--skip_txt", help="skip txt-files", action='store_true')
-    parser.add_argument("--dest_folder", help="folder for all downloads", type=str, default='downloads')
+    parser.add_argument("--dest_folder", help="folder for all downloads", type=str, default='media')
 
     args = parser.parse_args()
 
