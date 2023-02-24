@@ -10,7 +10,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 def on_reload():
 
-    filename_books_description = Path.cwd()/'downloads'/'parsed_books_data.json'
+    filename_books_description = Path.cwd()/'media'/'parsed_books_data.json'
     with open(filename_books_description, encoding='utf_8') as file:
         books_description = json.load(file)
 
@@ -24,8 +24,12 @@ def on_reload():
 
     env = Environment(
         loader=FileSystemLoader('.'),
-        autoescape=select_autoescape(['html', 'xml'])
+        autoescape=select_autoescape(['html', 'xml']),
     )
+
+    env.globals['static'] = '/static/'
+    env.globals['media'] = '/media/'
+    env.globals['pages'] = '/pages/'
 
     template = env.get_template('template.html')
 
@@ -61,7 +65,7 @@ def on_reload():
                                         )
 
         if pagination == 1:  # Main Page
-            with open(Path.cwd()/pages_folder/'index.html', 'w', encoding='utf8') as file:
+            with open('index.html', 'w', encoding='utf8') as file:
                 file.write(rendered_page)
 
         with open(Path.cwd()/pages_folder/f'index{pagination}.html', 'w', encoding='utf8') as file:
