@@ -51,7 +51,7 @@ def on_reload():
             pagination_next = 'disabled'
 
         total_pages = math.ceil(len(books_description)/per_page)
-        
+
         # Render Main Page
         prefix = ''
         rendered_page = template.render(
