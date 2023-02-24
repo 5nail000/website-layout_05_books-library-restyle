@@ -8,9 +8,9 @@
       shrink-to-fit=no">
 
       
-    <link rel="icon" type="image/png" href="{{prefix}}static/favicon.ico" sizes="16x16">
+    <link rel="icon" type="image/png" href="{{static}}favicon.ico" sizes="16x16">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{prefix}}static/bootstrap.min.css"
+    <link rel="stylesheet" href="{{static}}bootstrap.min.css"
       integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
       crossorigin="anonymous">
 
@@ -21,7 +21,7 @@
     <nav aria-label="Page navigation" class="mt-4 mb-4">
       <ul class="pagination justify-content-center">
         <li class="page-item {{previous_btn}}">
-          <a class="page-link" href="{{prefix}}pages/index{{current_page-1}}.html">Назад</a>
+          <a class="page-link" href="/pages/index{{current_page-1}}.html">Назад</a>
         </li>
         {% for page in total_pages %}
           {% if page+1 == current_page %}
@@ -30,11 +30,11 @@
             </li>
           {% else %}
             <li class="page-item"><a class="page-link"
-                href="{{prefix}}pages/index{{page+1}}.html">{{page+1}}</a></li>
+                href="/pages/index{{page+1}}.html">{{page+1}}</a></li>
           {% endif %}
         {% endfor %}
         <li class="page-item {{next_btn}}">
-          <a class="page-link" href="{{prefix}}pages/index{{current_page+1}}.html">Вперёд</a>
+          <a class="page-link" href="/pages/index{{current_page+1}}.html">Вперёд</a>
         </li>
 
       </ul>
@@ -63,7 +63,7 @@
                       {% endfor %}
                     </div>
                     <p class="card-text"><small class="text-muted"><a
-                          href="{{prefix}}media/books/{{book.file_name|urlencode}}.txt"
+                          href="/media/books/{{book.file_name|urlencode}}.txt"
                           target="_blank">Читать</a></small></p>
                   </div>
                 </div>
@@ -79,7 +79,7 @@
       <nav aria-label="Page navigation" class="mt-3 mb-5">
         <ul class="pagination justify-content-center">
           <li class="page-item {{previous_btn}}">
-            <a class="page-link" href="{{prefix}}pages/index{{current_page-1}}.html#nav_bottom">Назад</a>
+            <a class="page-link" href="/pages/index{{current_page-1}}.html#nav_bottom">Назад</a>
           </li>
           {% for page in total_pages %}
             {% if page+1 == current_page %}
@@ -88,11 +88,11 @@
               </li>
             {% else %}
               <li class="page-item"><a class="page-link"
-                  href="{{prefix}}pages/index{{page+1}}.html#nav_bottom">{{page+1}}</a></li>
+                  href="/pages/index{{page+1}}.html#nav_bottom">{{page+1}}</a></li>
             {% endif %}
           {% endfor %}
           <li class="page-item {{next_btn}}">
-            <a class="page-link" href="{{prefix}}pages/index{{current_page+1}}.html#nav_bottom">Вперёд</a>
+            <a class="page-link" href="/pages/index{{current_page+1}}.html#nav_bottom">Вперёд</a>
           </li>
 
         </ul>
@@ -103,10 +103,10 @@
     <!-- Optional JavaScript; choose one of the two! -->
     
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="{{prefix}}static/jquery-3.5.1.slim.min.js"
+    <script src="{{static}}jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
       crossorigin="anonymous"></script>
-    <script src="{{prefix}}static/bootstrap.bundle.min.js"
+    <script src="{{static}}bootstrap.bundle.min.js"
       integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
       crossorigin="anonymous"></script>
 
