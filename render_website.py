@@ -27,7 +27,6 @@ def on_reload():
         autoescape=select_autoescape(['html', 'xml']),
     )
 
-    env.globals['static'] = 'static/'
     template = env.get_template('template.html')
 
     current_book = 0
@@ -52,18 +51,31 @@ def on_reload():
             pagination_next = 'disabled'
 
         total_pages = math.ceil(len(books_description)/per_page)
-
+        
+        # Render Main Page
+        prefix = ''
         rendered_page = template.render(
                                         all_books_chunked=page_books,
                                         current_page=pagination,
                                         total_pages=range(total_pages),
                                         previous_btn=pagination_pre,
-                                        next_btn=pagination_next
+                                        next_btn=pagination_next,
+                                        prefix=prefix
                                         )
-
-        if pagination == 1:  # Main Page
+        if pagination == 1:
             with open('index.html', 'w', encoding='utf8') as file:
                 file.write(rendered_page)
+
+        # Render /pages/
+        prefix = '../'
+        rendered_page = template.render(
+                                        all_books_chunked=page_books,
+                                        current_page=pagination,
+                                        total_pages=range(total_pages),
+                                        previous_btn=pagination_pre,
+                                        next_btn=pagination_next,
+                                        prefix=prefix
+                                        )
 
         with open(Path.cwd()/pages_folder/f'index{pagination}.html', 'w', encoding='utf8') as file:
             file.write(rendered_page)
