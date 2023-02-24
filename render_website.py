@@ -27,9 +27,9 @@ def on_reload():
         autoescape=select_autoescape(['html', 'xml']),
     )
 
-    env.globals['static'] = '../static/'
-    env.globals['media'] = '../media/'
-    env.globals['pages'] = '../pages/'
+    env.globals['static'] = './static/'
+    env.globals['media'] = './media/'
+    env.globals['pages'] = './pages/'
 
     '''
     env.globals['static'] = env.globals['static'][:-1]
