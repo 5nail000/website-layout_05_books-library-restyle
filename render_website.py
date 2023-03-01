@@ -27,17 +27,17 @@ def parse_argparse():
 
 def on_reload(data_folder='media'):
 
-    filename_books_description = Path.cwd()/data_folder/'parsed_books_data.json'
-    with open(filename_books_description, encoding='utf_8') as file:
-        books_description = json.load(file)
+    filename_books_descriptions = Path.cwd()/data_folder/'parsed_books_data.json'
+    with open(filename_books_descriptions, encoding='utf_8') as file:
+        books_descriptions = json.load(file)
 
-    per_page = 20
+    books_cards_per_page = 20
     columns = 2
     pagination = 0
     pages_folder = 'pages'
 
     os.makedirs(pages_folder, exist_ok=True)
-    all_books_chunked = list(chunked(books_description.values(), columns))
+    all_book_cards_chunked = list(chunked(books_descriptions.values(), columns))
 
     env = Environment(
         loader=FileSystemLoader('.'),
@@ -50,10 +50,10 @@ def on_reload(data_folder='media'):
     pagination_continue = True
     while pagination_continue:
         page_books = []
-        for num in enumerate(range(int(per_page/columns))):
-            if current_book >= len(books_description)/columns:
+        for num in enumerate(range(int(books_cards_per_page/columns))):
+            if current_book >= len(books_descriptions)/columns:
                 continue
-            page_books.append(all_books_chunked[current_book])
+            page_books.append(all_book_cards_chunked[current_book])
             current_book += 1
 
         pagination += 1
@@ -63,16 +63,16 @@ def on_reload(data_folder='media'):
         if pagination == 1:
             pagination_pre = 'disabled'
 
-        if current_book >= len(books_description)/columns:
+        if current_book >= len(books_descriptions)/columns:
             pagination_continue = False
             pagination_next = 'disabled'
 
-        total_pages = math.ceil(len(books_description)/per_page)
+        total_pages = math.ceil(len(books_descriptions)/books_cards_per_page)
 
         # Render Main Page
         prefix = ''
         rendered_page = template.render(
-                                        all_books_chunked=page_books,
+                                        all_book_cards_chunked=page_books,
                                         current_page=pagination,
                                         total_pages=range(total_pages),
                                         previous_btn=pagination_pre,
@@ -86,7 +86,7 @@ def on_reload(data_folder='media'):
         # Render /pages/
         prefix = '../'
         rendered_page = template.render(
-                                        all_books_chunked=page_books,
+                                        all_book_cards_chunked=page_books,
                                         current_page=pagination,
                                         total_pages=range(total_pages),
                                         previous_btn=pagination_pre,
