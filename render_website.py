@@ -1,16 +1,33 @@
 import json
 import os
+import io
 import math
+import argparse
 
 from pathlib import Path
 from more_itertools import chunked
 from livereload import Server
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+from contextlib import redirect_stderr
 
 
-def on_reload():
+def parse_argparse():
+    parser = argparse.ArgumentParser(description="Веб интерфейс для навигации по данным сохранённой библиотеки")
+    parser.add_argument(
+        'data_folder', type=str, default='media', help='Папка с данными, по умолчанию "media"'
+        )
 
-    filename_books_description = Path.cwd()/'media'/'parsed_books_data.json'
+    try:
+        data_folder = parser.parse_args().data_folder
+    except SystemExit:
+        data_folder = 'media'
+
+    return data_folder
+
+
+def on_reload(data_folder='media'):
+
+    filename_books_description = Path.cwd()/data_folder/'parsed_books_data.json'
     with open(filename_books_description, encoding='utf_8') as file:
         books_description = json.load(file)
 
@@ -83,8 +100,9 @@ def on_reload():
 
 if __name__ == '__main__':
 
-    on_reload()
+    data_folder = parse_argparse()
+    on_reload(data_folder)
 
     server = Server()
-    server.watch('template.html', on_reload)
+    server.watch('template.html', on_reload(data_folder))
     server.serve(root='.')
