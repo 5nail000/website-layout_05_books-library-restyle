@@ -48,11 +48,8 @@ def on_reload(data_folder='media'):
 
     for page_num in range(total_pages):
 
-        page_prev_disabled = ''
-        page_next_disabled = ''
-
-        page_prev_disabled = 'disabled' if page_num == 0 else True
-        page_next_disabled = 'disabled' if page_num == (total_pages-1) else True
+        page_prev_disabled = 'disabled' if page_num == 0 else ''
+        page_next_disabled = 'disabled' if page_num == (total_pages-1) else ''
 
         # Render Main Page
         prefix = ''
