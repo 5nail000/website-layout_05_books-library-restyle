@@ -101,8 +101,9 @@ def on_reload(data_folder='media'):
 if __name__ == '__main__':
 
     data_folder = parse_argparse()
+    print(f'choosing folder: {data_folder}')
     on_reload(data_folder)
 
     server = Server()
-    server.watch('template.html', on_reload(data_folder))
+    server.watch('template.html', on_reload)
     server.serve(root='.')
