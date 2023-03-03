@@ -61,6 +61,11 @@ py render_website.py
 ```
 py render_website.py downloads
 ```
+или можно задать ещё точнее и указать имя файла
+```
+py render_website.py downloads/media.json
+```
+
 
 После успешного сохранения всех страниц скрипт запускает локальный сервер(по адресу: [http://127.0.0.1:5500/](http://127.0.0.1:5500/))
 

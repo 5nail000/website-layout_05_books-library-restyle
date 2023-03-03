@@ -17,16 +17,23 @@ def parse_argparse():
 
     try:
         data_folder = parser.parse_args().data_folder
+        if os.path.isfile(data_folder):
+            filename = os.path.basename(data_folder)
+            dir_name = os.path.dirname(data_folder)
+        else:
+            filename = 'parsed_books_data.json'
+            dir_name = data_folder
     except SystemExit:
-        data_folder = 'media'
+        filename = 'parsed_books_data.json'
+        dir_name = Path.cwd()/'media'
 
-    return data_folder
+    return dir_name, filename
 
 
-def on_reload(data_folder='media'):
+def on_reload(data_path, data_filename):
 
-    filename_books_descriptions = Path.cwd()/data_folder/'parsed_books_data.json'
-    with open(filename_books_descriptions, encoding='utf_8') as file:
+    full_file_path = f'{data_path}{os.sep}{data_filename}'
+    with open(full_file_path, encoding='utf_8') as file:
         books_descriptions = json.load(file)
 
     columns = 2
@@ -59,7 +66,8 @@ def on_reload(data_folder='media'):
                                         total_pages=range(total_pages),
                                         previous_btn=page_prev_disabled,
                                         next_btn=page_next_disabled,
-                                        prefix=prefix
+                                        prefix=prefix,
+                                        mediafolder=data_path
                                         )
         if page_num == 0:
             with open('index.html', 'w', encoding='utf8') as file:
@@ -73,7 +81,8 @@ def on_reload(data_folder='media'):
                                         total_pages=range(total_pages),
                                         previous_btn=page_prev_disabled,
                                         next_btn=page_next_disabled,
-                                        prefix=prefix
+                                        prefix=prefix,
+                                        mediafolder=data_path
                                         )
 
         with open(Path.cwd()/pages_folder/f'index{page_num+1}.html', 'w', encoding='utf8') as file:
@@ -82,10 +91,10 @@ def on_reload(data_folder='media'):
 
 if __name__ == '__main__':
 
-    data_folder = parse_argparse()
-    print(f'choosing folder: {data_folder}')
-    on_reload(data_folder)
+    data_path, data_filename = parse_argparse()
+    print(f'loaded data from: {data_path}{os.sep}{data_filename}')
+    on_reload(data_path, data_filename)
 
     server = Server()
-    server.watch('template.html', on_reload(data_folder))
+    server.watch('template.html', on_reload(data_path, data_filename))
     server.serve(root='.')
