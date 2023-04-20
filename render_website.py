@@ -9,7 +9,7 @@ from livereload import Server
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 
-def setup_parser():
+def get_cli_args():
     parser = argparse.ArgumentParser(description="Веб интерфейс для навигации по данным сохранённой библиотеки")
     parser.add_argument('datafile', type=str, default='', help='Относительный путь к файлу с данными')
 
@@ -81,7 +81,7 @@ def on_reload(data_filename):
 
 if __name__ == '__main__':
 
-    data_filename = setup_parser()
+    data_filename = get_cli_args()
     on_reload(data_filename)
 
     server = Server()
