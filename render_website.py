@@ -35,20 +35,20 @@ def on_reload(data_filename):
 
     template = env.get_template('template.html')
 
-    for page_num in range(total_pages):
+    for page_num in range(1, total_pages):
 
-        page_prev_disabled = 'disabled' if page_num == 0 else ''
-        page_next_disabled = 'disabled' if page_num == (total_pages-1) else ''
+        page_prev_disabled = 'disabled' if page_num == 1 else ''
+        page_next_disabled = 'disabled' if page_num == total_pages else ''
 
         rendered_page = template.render(
-                                        books_at_page=book_cards_by_pages[page_num],
-                                        current_page=page_num+1,
+                                        books_at_page=book_cards_by_pages[page_num-1],
+                                        current_page=page_num,
                                         total_pages=range(total_pages),
                                         previous_btn=page_prev_disabled,
                                         next_btn=page_next_disabled
                                         )
 
-        with open(Path.cwd()/folder_path/f'index{page_num+1}.html', 'w', encoding='utf8') as file:
+        with open(Path.cwd()/folder_path/f'index{page_num}.html', 'w', encoding='utf8') as file:
             file.write(rendered_page)
 
 
