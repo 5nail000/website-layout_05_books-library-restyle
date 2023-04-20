@@ -11,7 +11,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 def get_cli_args():
     parser = argparse.ArgumentParser(description="Веб интерфейс для навигации по данным сохранённой библиотеки")
-    parser.add_argument('datafile', type=str, default='parsed_books_data.json', help='Относительный путь к файлу с данными')
+    parser.add_argument('-datafile', type=str, default='parsed_books_data.json', help='Относительный путь к файлу с данными')
     return parser.parse_args().datafile
 
 
@@ -37,15 +37,10 @@ def on_reload(data_filename):
 
     for page_num in range(1, total_pages):
 
-        page_prev_disabled = 'disabled' if page_num == 1 else ''
-        page_next_disabled = 'disabled' if page_num == total_pages else ''
-
         rendered_page = template.render(
                                         books_at_page=book_cards_by_pages[page_num-1],
                                         current_page=page_num,
                                         total_pages=range(total_pages),
-                                        previous_btn=page_prev_disabled,
-                                        next_btn=page_next_disabled
                                         )
 
         with open(Path.cwd()/folder_path/f'index{page_num}.html', 'w', encoding='utf8') as file:
