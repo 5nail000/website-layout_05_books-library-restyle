@@ -12,14 +12,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 def get_cli_args():
     parser = argparse.ArgumentParser(description="Веб интерфейс для навигации по данным сохранённой библиотеки")
     parser.add_argument('datafile', type=str, default='parsed_books_data.json', help='Относительный путь к файлу с данными')
-
-    datafile = parser.parse_args().datafile
-    if os.path.isfile(datafile):
-        datafile_parsed = datafile
-    else:
-        datafile_parsed = f'{datafile}{os.sep}parsed_books_data.json'
-
-    return datafile_parsed
+    return parser.parse_args().datafile
 
 
 def on_reload(data_filename):
