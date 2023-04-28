@@ -70,7 +70,7 @@ py render_website.py downloads/media.json
 После успешного сохранения всех страниц скрипт запускает [локальный сервер](http://127.0.0.1:5500/))
 
 В текущем дистрибутиве уже сохранены данные около 300 книг, и под них уже свёрстаны страницы.
-
+\n
 Можно посмотреть на то как это выглядит **([https://5nail000.github.io/website-layout_05_books-library-restyle/](https://5nail000.github.io/website-layout_05_books-library-restyle/pages/index1.html))**
 
 ------------------------
