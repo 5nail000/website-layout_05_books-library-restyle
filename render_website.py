@@ -30,19 +30,16 @@ def on_reload(data_filename):
 
     env = Environment(
         loader=FileSystemLoader('.'),
-        autoescape=select_autoescape(['html', 'xml']),
-    )
-
+        autoescape=select_autoescape(['html', 'xml'])
+        )
     template = env.get_template('template.html')
 
     for page_num in range(1, total_pages):
-
         rendered_page = template.render(
                                         books_at_page=book_cards_by_pages[page_num-1],
                                         current_page=page_num,
                                         total_pages=range(total_pages),
                                         )
-
         with open(Path.cwd()/folder_path/f'index{page_num}.html', 'w', encoding='utf8') as file:
             file.write(rendered_page)
 
